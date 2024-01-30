@@ -1,3 +1,6 @@
+import { createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
 html,
 body,
 div,
@@ -5,7 +8,7 @@ span,
 applet,
 object,
 iframe,
-h1,
+
 h2,
 h3,
 h4,
@@ -86,6 +89,9 @@ video {
   font: inherit;
   vertical-align: baseline;
 }
+h1{
+  font-family: 'Song Myung', serif;
+}
 
 article,
 aside,
@@ -122,3 +128,11 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+  *,*::before,*::after{
+    box-sizing: border-box;
+  }
+  
+`;
+
+export default GlobalStyle;
