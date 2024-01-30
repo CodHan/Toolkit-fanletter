@@ -6,8 +6,17 @@ import KimGunWu from 'components/page/KimGunWu';
 import ParkJaeHoon from 'components/page/ParkJaeHoon';
 import JangSungYup from 'components/page/JangSungYup';
 import Form from './Form';
+import { useState, useEffect } from 'react';
 
 function Nav() {
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    fetch('http://localhost:3001/0')
+      .then((response) => response.json())
+      .then((json) => setData(json));
+  }, []);
+  console.log(data);
   return (
     <div>
       <BrowserRouter>
