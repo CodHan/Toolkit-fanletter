@@ -19,18 +19,7 @@ const NavStyleButton = styled.button`
 `;
 
 function NavButton({ children }) {
-  const [buttonClick, setButtonClick] = useState(false);
-  const onclick = (e) => {
-    e.preventDefault();
-    setButtonClick(true);
-  };
-  return (
-    <form>
-      <NavStyleButton type="submit" onClick={onclick} buttonClick={buttonClick}>
-        {children}
-      </NavStyleButton>
-    </form>
-  );
+  return <NavStyleButton>{children}</NavStyleButton>;
 }
 
 export default NavButton;

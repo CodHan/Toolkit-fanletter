@@ -1,5 +1,10 @@
 import NavButton from 'components/commons/NavButton';
 import styled from 'styled-components';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import KimKangMin from 'components/KimKangMin';
+import KimGunWu from 'components/KimGunWu';
+import ParkJaeHoon from 'components/ParkJaeHoon';
+import JangSungYup from 'components/JangSungYup';
 
 const NavParents = styled.div`
   display: flex;
@@ -20,22 +25,43 @@ const Navli = styled.li`
 
 function Nav() {
   return (
-    <NavParents>
-      <NavUl>
-        <Navli>
-          <NavButton>김강민</NavButton>
-        </Navli>
-        <Navli>
-          <NavButton>김건우</NavButton>
-        </Navli>
-        <Navli>
-          <NavButton>박재훈</NavButton>
-        </Navli>
-        <Navli>
-          <NavButton>장성엽</NavButton>
-        </Navli>
-      </NavUl>
-    </NavParents>
+    <BrowserRouter>
+      <NavParents>
+        <NavUl>
+          <Navli>
+            <Link to="/KimKangMin">
+              <NavButton>김강민</NavButton>
+            </Link>
+          </Navli>
+
+          <Navli>
+            <Link to="/KimGunWu">
+              <NavButton>김건우</NavButton>
+            </Link>
+          </Navli>
+
+          <Navli>
+            <Link to="/ParkJaeHoon">
+              <NavButton>박재훈</NavButton>
+            </Link>
+          </Navli>
+
+          <Navli>
+            <Link to="/JangSungYup">
+              <NavButton>장성엽</NavButton>
+            </Link>
+          </Navli>
+        </NavUl>
+      </NavParents>
+      <main>
+        <Routes>
+          <Route path="/KimKangMin" element={<KimKangMin />} />
+          <Route path="/KimGunWu" element={<KimGunWu />} />
+          <Route path="/ParkJaeHoon" element={<ParkJaeHoon />} />
+          <Route path="/JangSungYup" element={<JangSungYup />} />
+        </Routes>
+      </main>
+    </BrowserRouter>
   );
 }
 
