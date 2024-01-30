@@ -1,27 +1,10 @@
 import NavButton from 'components/commons/NavButton';
 import styled from 'styled-components';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
-import KimKangMin from 'components/KimKangMin';
-import KimGunWu from 'components/KimGunWu';
-import ParkJaeHoon from 'components/ParkJaeHoon';
-import JangSungYup from 'components/JangSungYup';
-
-const NavParents = styled.div`
-  display: flex;
-  background-color: aquamarine;
-  height: 40px;
-  width: 350px;
-  border: 2px solid aquamarine;
-  margin: 5px auto 0 auto;
-  border-radius: 10px;
-  justify-content: center;
-`;
-const NavUl = styled.ul`
-  display: flex;
-`;
-const Navli = styled.li`
-  padding: 7px;
-`;
+import KimKangMin from 'components/page/KimKangMin';
+import KimGunWu from 'components/page/KimGunWu';
+import ParkJaeHoon from 'components/page/ParkJaeHoon';
+import JangSungYup from 'components/page/JangSungYup';
 
 function Nav() {
   return (
@@ -66,3 +49,20 @@ function Nav() {
 }
 
 export default Nav;
+
+const NavParents = styled.div`
+  display: flex;
+  background-color: aquamarine;
+  height: 40px;
+  width: 350px;
+  border: 2px solid aquamarine;
+  margin: 5px auto 0 auto;
+  border-radius: 10px;
+  justify-content: center;
+`;
+const NavUl = styled.ul`
+  display: flex;
+`;
+const Navli = styled.li`
+  padding: 7px;
+`;

@@ -2,6 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 import image from '../../image/header.png';
 
+function Header() {
+  return (
+    <div>
+      <HederBackGround>
+        <HeaderTitle>
+          <Title>대한 민국 만세 팬레터</Title>
+        </HeaderTitle>
+      </HederBackGround>
+    </div>
+  );
+}
+
+export default Header;
+
 const HederBackGround = styled.header`
   background-image: url(${image});
   display: flex;
@@ -24,17 +38,3 @@ const Title = styled.h1`
   font-size: 30px;
   color: #cd0c22;
 `;
-
-function Header() {
-  return (
-    <div>
-      <HederBackGround>
-        <HeaderTitle>
-          <Title>대한 민국 만세 팬레터</Title>
-        </HeaderTitle>
-      </HederBackGround>
-    </div>
-  );
-}
-
-export default Header;

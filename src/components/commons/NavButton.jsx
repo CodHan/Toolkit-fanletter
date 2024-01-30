@@ -3,6 +3,12 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { useState } from 'react';
 
+function NavButton({ children }) {
+  return <NavStyleButton>{children}</NavStyleButton>;
+}
+
+export default NavButton;
+
 const NavStyleButton = styled.button`
   background-color: #0c6fcd;
   border: 1px solid #0c6fcd;
@@ -17,9 +23,3 @@ const NavStyleButton = styled.button`
     transition: 0.2s;
   }
 `;
-
-function NavButton({ children }) {
-  return <NavStyleButton>{children}</NavStyleButton>;
-}
-
-export default NavButton;
