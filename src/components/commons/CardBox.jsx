@@ -1,13 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Card from './Card';
 
-function CardBox() {
-  return (
-    <BoxStyle>
-      <Card />
-    </BoxStyle>
-  );
+function CardBox({ children }) {
+  return <BoxStyle>{children}</BoxStyle>;
 }
 
 export default CardBox;

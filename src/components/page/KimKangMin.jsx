@@ -1,7 +1,12 @@
+import CardBox from 'components/commons/CardBox';
 import React from 'react';
 
 function KimKangMin() {
-  return <div>KimKangMin</div>;
+  return (
+    <CardBox>
+      <div>KimKangMin</div>
+    </CardBox>
+  );
 }
 
 export default KimKangMin;
