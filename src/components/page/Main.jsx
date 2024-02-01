@@ -17,7 +17,6 @@ function Main({ data, setData }) {
       case 'KimKangMin':
         const filterData = data.filter((item) => item.writedTo === '김강민');
         setData(filterData);
-        console.log(data);
     }
   };
   return (

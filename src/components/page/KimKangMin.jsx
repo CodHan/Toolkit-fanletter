@@ -42,30 +42,31 @@ function KimKangMin({ data, setData }) {
       <CardBox>
         <ul>
           {/*  cardbox굳이 써야하나 */}
-          {data.length === 0 ? (
+          {filterData.length === 0 ? (
             <p>아무도 안씀</p>
           ) : (
-            filterData.map((item) => {
-              return (
-                <S.Letter
-                  id={item.id}
-                  onClick={() => navigate(`/detail/${item.id}`)}
-                  data={data}
-                >
-                  <S.Writer>
-                    <div>
-                      <S.Img src={item.avatar} alt="유저이미지" />
-                    </div>
-                    <S.NameAndTime>
-                      <div>{item.nickname}</div>
-                      <div>{item.createdAt}</div>
-                    </S.NameAndTime>
-                  </S.Writer>
+            data
+              .filter((item) => item.writedTo === '김강민')
+              .map((item) => {
+                return (
+                  <S.Letter
+                    onClick={() => navigate(`/detail/${item.id}`)}
+                    data={item}
+                  >
+                    <S.Writer>
+                      <div>
+                        <S.Img src={item.avatar} alt="유저이미지" />
+                      </div>
+                      <S.NameAndTime>
+                        <div>{item.nickname}</div>
+                        <div>{item.createdAt}</div>
+                      </S.NameAndTime>
+                    </S.Writer>
 
-                  <S.BodyText>{item.content}</S.BodyText>
-                </S.Letter>
-              );
-            })
+                    <S.BodyText>{item.content}</S.BodyText>
+                  </S.Letter>
+                );
+              })
           )}
         </ul>
       </CardBox>

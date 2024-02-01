@@ -81,7 +81,10 @@ function Nav() {
             path="/JangSungYup"
             element={<JangSungYup data={data} setData={setData} />}
           />
-          <Route path="detail/:id" element={<Detail />} />
+          <Route
+            path="detail/:id"
+            element={<Detail data={data} setData={setData} />}
+          />
         </Routes>
       </BrowserRouter>
     </div>
