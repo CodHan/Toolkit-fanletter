@@ -5,7 +5,7 @@ import uuid from 'react-uuid';
 function Form({ data, setData }) {
   const [name, setName] = useState('');
   const [content, setContent] = useState('');
-  const [member, setMember] = useState(null);
+  const [member, setMember] = useState('김강민');
 
   const nameValue = (e) => {
     setName(e.target.value);
@@ -15,8 +15,9 @@ function Form({ data, setData }) {
   };
   const onSubmit = (e) => {
     e.preventDefault();
+    const date = new Date();
     const newData = {
-      createdAt: new Date(),
+      createdAt: date.toLocaleString(),
       nickname: name,
       avatar:
         'https://e7.pngegg.com/pngimages/1010/196/png-clipart-social-networking-site-default-profile-forehead-silhouette-face-monochrome-contacts-face-monochrome.png',
@@ -30,6 +31,7 @@ function Form({ data, setData }) {
     setMember('김강민'); //다시 김강민으로 돌리는게 안됨
   };
   const selectMember = (e) => {
+    console.log(e.target.value);
     setMember(e.target.value);
   };
 

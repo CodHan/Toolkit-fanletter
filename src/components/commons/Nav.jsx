@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useState } from 'react';
 import KimKangMin from 'components/page/KimKangMin';
 import KimGunWu from 'components/page/KimGunWu';
 import ParkJaeHoon from 'components/page/ParkJaeHoon';
 import JangSungYup from 'components/page/JangSungYup';
-import Form from './Form';
-import { useState, useEffect } from 'react';
+import Detail from 'components/page/Detail';
+import Main from 'components/page/Main';
 
 function Nav() {
   const [data, setData] = useState([
@@ -60,45 +60,28 @@ function Nav() {
       id: '5',
     },
   ]);
-  console.log(data);
-
   return (
     <div>
       <BrowserRouter>
-        <NavParents>
-          <NavUl>
-            <Navli>
-              <Link to="/KimKangMin">
-                <NavStyleButton>김강민</NavStyleButton>
-              </Link>
-            </Navli>
-
-            <Navli>
-              <Link to="/KimGunWu">
-                <NavStyleButton>김건우</NavStyleButton>
-              </Link>
-            </Navli>
-
-            <Navli>
-              <Link to="/ParkJaeHoon">
-                <NavStyleButton>박재훈</NavStyleButton>
-              </Link>
-            </Navli>
-
-            <Navli>
-              <Link to="/JangSungYup">
-                <NavStyleButton>장성엽</NavStyleButton>
-              </Link>
-            </Navli>
-          </NavUl>
-        </NavParents>
-        <Form data={data} setData={setData} />
-
         <Routes>
-          <Route path="/KimKangMin" element={<KimKangMin data={data} />} />
-          <Route path="/KimGunWu" element={<KimGunWu data={data} />} />
-          <Route path="/ParkJaeHoon" element={<ParkJaeHoon data={data} />} />
-          <Route path="/JangSungYup" element={<JangSungYup data={data} />} />
+          <Route path="/" element={<Main data={data} setData={setData} />} />
+          <Route
+            path="/KimKangMin"
+            element={<KimKangMin data={data} setData={setData} />}
+          />
+          <Route
+            path="/KimGunWu"
+            element={<KimGunWu data={data} setData={setData} />}
+          />
+          <Route
+            path="/ParkJaeHoon"
+            element={<ParkJaeHoon data={data} setData={setData} />}
+          />
+          <Route
+            path="/JangSungYup"
+            element={<JangSungYup data={data} setData={setData} />}
+          />
+          <Route path="detail/:id" element={<Detail />} />
         </Routes>
       </BrowserRouter>
     </div>
@@ -106,34 +89,3 @@ function Nav() {
 }
 
 export default Nav;
-
-const NavParents = styled.div`
-  display: flex;
-  background-color: aquamarine;
-  height: 40px;
-  width: 350px;
-  border: 2px solid aquamarine;
-  margin: 5px auto 0 auto;
-  border-radius: 10px;
-  justify-content: center;
-`;
-const NavUl = styled.ul`
-  display: flex;
-`;
-const Navli = styled.li`
-  padding: 7px;
-`;
-const NavStyleButton = styled.button`
-  background-color: #0c6fcd;
-  border: 1px solid #0c6fcd;
-  border-radius: 3px;
-  color: #cd0c22;
-  margin-right: 8px;
-  cursor: pointer;
-
-  &:hover {
-    background: cornflowerblue;
-    color: white;
-    transition: 0.2s;
-  }
-`;

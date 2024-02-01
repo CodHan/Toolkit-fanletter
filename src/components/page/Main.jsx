@@ -1,15 +1,25 @@
-import CardBox from 'components/page/CardBox';
 import React from 'react';
-import * as S from './Page.style';
-import { Link } from 'react-router-dom';
-import Header from 'components/commons/Header';
-import Form from 'components/commons/Form';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import {
+  BrowserRouter,
+  Link,
+  Route,
+  Routes,
+  useLocation,
+} from 'react-router-dom';
+import Form from 'components/commons/Form';
+import { useState } from 'react';
+import Header from 'components/commons/Header';
 
-function KimGunWu({ data, setData }) {
-  const filterData = data.filter((item) => item.writedTo === '김건우');
-  const navigate = useNavigate();
+function Main({ data, setData }) {
+  const onClickHandler = (type) => {
+    switch (type) {
+      case 'KimKangMin':
+        const filterData = data.filter((item) => item.writedTo === '김강민');
+        setData(filterData);
+        console.log(data);
+    }
+  };
   return (
     <div>
       <Header />
@@ -17,7 +27,9 @@ function KimGunWu({ data, setData }) {
         <NavUl>
           <Navli>
             <Link to="/KimKangMin">
-              <NavStyleButton>김강민</NavStyleButton>
+              <NavStyleButton onClick={() => onClickHandler('KimKangMin')}>
+                김강민
+              </NavStyleButton>
             </Link>
           </Navli>
           <Navli>
@@ -37,41 +49,14 @@ function KimGunWu({ data, setData }) {
           </Navli>
         </NavUl>
       </NavParents>
+      {/* 제출 폼 영역 */}
       <Form data={data} setData={setData} />
-      <CardBox>
-        <ul>
-          {filterData.length === 0 ? (
-            <p>아무도 안씀</p>
-          ) : (
-            filterData.map((item) => {
-              return (
-                <S.Letter
-                  id={item.id}
-                  onClick={() => navigate(`/detail/${item.id}`)}
-                  data={data}
-                >
-                  <S.Writer>
-                    <div>
-                      <S.Img src={item.avatar} alt="유저이미지" />
-                    </div>
-                    <S.NameAndTime>
-                      <div>{item.nickname}</div>
-                      <div>{item.createdAt}</div>
-                    </S.NameAndTime>
-                  </S.Writer>
-
-                  <S.BodyText>{item.content}</S.BodyText>
-                </S.Letter>
-              );
-            })
-          )}
-        </ul>
-      </CardBox>
     </div>
   );
 }
 
-export default KimGunWu;
+export default Main;
+
 const NavParents = styled.div`
   display: flex;
   background-color: aquamarine;

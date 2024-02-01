@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import image from '..//image/header.png';
+import image from '../image/header.png';
 
 function Header() {
   return (
