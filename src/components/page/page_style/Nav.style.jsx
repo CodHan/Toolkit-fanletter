@@ -20,10 +20,10 @@ export const NavStyleButton = styled.button`
   background-color: #0c6fcd;
   border: 1px solid #0c6fcd;
   border-radius: 3px;
-  color: #cd0c22;
+  background-color: #0c6fcd;
   margin-right: 8px;
   cursor: pointer;
-
+  color: red;
   &:hover {
     background: cornflowerblue;
     color: white;
