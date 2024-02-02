@@ -1,11 +1,11 @@
-import CardBox from 'components/page/CardBox';
+import CardBox from 'components/commons/CardBox';
 import React from 'react';
-import * as S from './Page.style';
+import * as S from './page_style/Page.style';
+import * as NS from './page_style/Nav.style';
 import { Link } from 'react-router-dom';
 import Header from 'components/commons/Header';
 import Form from 'components/commons/Form';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 
 function KimGunWu({ data, setData }) {
   const filterData = data.filter((item) => item.writedTo === '김건우');
@@ -13,30 +13,30 @@ function KimGunWu({ data, setData }) {
   return (
     <div>
       <Header />
-      <NavParents>
-        <NavUl>
-          <Navli>
-            <Link to="/KimKangMin">
-              <NavStyleButton>김강민</NavStyleButton>
+      <NS.NavParents>
+        <NS.NavUl>
+          <NS.Navli>
+            <Link to="/">
+              <NS.NavStyleButton>김강민</NS.NavStyleButton>
             </Link>
-          </Navli>
-          <Navli>
+          </NS.Navli>
+          <NS.Navli>
             <Link to="/KimGunWu">
-              <NavStyleButton>김건우</NavStyleButton>
+              <NS.NavStyleButton>김건우</NS.NavStyleButton>
             </Link>
-          </Navli>
-          <Navli>
+          </NS.Navli>
+          <NS.Navli>
             <Link to="/ParkJaeHoon">
-              <NavStyleButton>박재훈</NavStyleButton>
+              <NS.NavStyleButton>박재훈</NS.NavStyleButton>
             </Link>
-          </Navli>
-          <Navli>
+          </NS.Navli>
+          <NS.Navli>
             <Link to="/JangSungYup">
-              <NavStyleButton>장성엽</NavStyleButton>
+              <NS.NavStyleButton>장성엽</NS.NavStyleButton>
             </Link>
-          </Navli>
-        </NavUl>
-      </NavParents>
+          </NS.Navli>
+        </NS.NavUl>
+      </NS.NavParents>
       <Form data={data} setData={setData} />
       <CardBox>
         <ul>
@@ -74,33 +74,3 @@ function KimGunWu({ data, setData }) {
 }
 
 export default KimGunWu;
-const NavParents = styled.div`
-  display: flex;
-  background-color: aquamarine;
-  height: 40px;
-  width: 350px;
-  border: 2px solid aquamarine;
-  margin: 5px auto 0 auto;
-  border-radius: 10px;
-  justify-content: center;
-`;
-const NavUl = styled.ul`
-  display: flex;
-`;
-const Navli = styled.li`
-  padding: 7px;
-`;
-const NavStyleButton = styled.button`
-  background-color: #0c6fcd;
-  border: 1px solid #0c6fcd;
-  border-radius: 3px;
-  color: #cd0c22;
-  margin-right: 8px;
-  cursor: pointer;
-
-  &:hover {
-    background: cornflowerblue;
-    color: white;
-    transition: 0.2s;
-  }
-`;

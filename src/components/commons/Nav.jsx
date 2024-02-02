@@ -4,8 +4,7 @@ import KimKangMin from 'components/page/KimKangMin';
 import KimGunWu from 'components/page/KimGunWu';
 import ParkJaeHoon from 'components/page/ParkJaeHoon';
 import JangSungYup from 'components/page/JangSungYup';
-import Detail from 'components/page/Detail';
-import Main from 'components/page/Main';
+import Detail from 'components/commons/Detail';
 
 function Nav() {
   const [data, setData] = useState([
@@ -64,9 +63,8 @@ function Nav() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Main data={data} setData={setData} />} />
           <Route
-            path="/KimKangMin"
+            path="/"
             element={<KimKangMin data={data} setData={setData} />}
           />
           <Route

@@ -1,40 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import image from '../image/header.png';
+import * as S from './commons_style/Header.style';
 
 function Header() {
   return (
     <div>
-      <HederBackGround>
-        <HeaderTitle>
-          <Title>대한 민국 만세 팬레터</Title>
-        </HeaderTitle>
-      </HederBackGround>
+      <S.HederBackGround>
+        <S.HeaderTitle>
+          <S.Title>대한 민국 만세 팬레터</S.Title>
+        </S.HeaderTitle>
+      </S.HederBackGround>
     </div>
   );
 }
 
 export default Header;
-
-const HederBackGround = styled.header`
-  background-image: url(${image});
-  display: flex;
-  justify-content: center;
-  background-size: cover;
-  width: 1097px;
-  height: 200px;
-  align-items: center;
-`;
-
-const HeaderTitle = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 350px;
-  height: 50px;
-  margin-top: 60px;
-`;
-
-const Title = styled.h1`
-  font-size: 30px;
-  color: #cd0c22;
-`;
