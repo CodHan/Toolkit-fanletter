@@ -75,7 +75,7 @@ export const WriteTo = styled.p`
 export const ContentText = styled.p`
   background-color: #0c6fcd;
   padding: 16px;
-  font-size: 24px;
+  font-size: 15px;
   line-height: 48px;
   border: 3px solid pink;
   border-radius: 10px;
@@ -84,7 +84,7 @@ export const ContentText = styled.p`
   color: pink;
 `;
 export const EditingTextArea = styled.textarea`
-  background-color: black;
+  background-color: #0c6fcd;
   padding: 16px;
   font-size: 24px;
   line-height: 48px;

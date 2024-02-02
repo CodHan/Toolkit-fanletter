@@ -7,19 +7,52 @@ import { useNavigate } from 'react-router-dom';
 
 function Detail({ data, setData }) {
   const [retouch, setRetouch] = useState(false);
+  const [update, setUpdate] = useState();
   const { id } = useParams();
   const navigate = useNavigate();
   const filterData = data.filter((item) => item.id === id);
-
+  //뒤로가기
   const backBtnHendler = () => {
     navigate(-1);
   };
+  // 삭제버튼
   const deleteHendler = () => {
     const deleateData = data.filter((item) => item.id !== id);
     setData(deleateData);
     navigate(-1);
   };
-  console.log(data);
+  //수정버튼
+  const retouchHendler = () => {
+    setRetouch(true);
+  };
+  //수정완료버튼
+  const submitMessage = () => {
+    window.confirm('이대로 수정 하시겠습니까?');
+    retouchSubmit();
+  };
+  const retouchSubmit = () => {
+    if (!update) {
+      return alert('수정 된 부분이 없습니다.'), setRetouch(false);
+    }
+
+    // if (update) {
+    //   return submitMessage;
+    // }
+    else if (update) {
+      setData((prevData) => {
+        return prevData.map((item) => {
+          item.content = update;
+          return item;
+        });
+      });
+      window.confirm('수정되었습니다');
+      navigate(-1);
+    }
+    // if (!submitMessage) {
+    //   return alert('수정 된 부분이 없습니다.');
+    // }
+  };
+
   return filterData.map((item) => {
     return (
       <S.Container>
@@ -36,15 +69,27 @@ function Detail({ data, setData }) {
               </S.Time>
             </S.LetterHeader>
             <S.WriteTo>To:{item.writedTo}</S.WriteTo>
-            {/* 수정버튼 true일때 textArea로직 */}
-            <S.ContentText>{item.content}</S.ContentText>
+            {retouch === true ? (
+              <>
+                <S.EditingTextArea
+                  defaultValue={item.content}
+                  onChange={(e) => setUpdate(e.target.value)}
+                />
+              </>
+            ) : (
+              <S.ContentText>{item.content}</S.ContentText>
+            )}
           </div>
           <S.Buttons>
             {retouch === true ? (
-              <B.NavStyleButton>수정완료</B.NavStyleButton>
+              <B.NavStyleButton onClick={submitMessage}>
+                수정완료
+              </B.NavStyleButton>
             ) : (
               <>
-                <B.NavStyleButton>수정</B.NavStyleButton>
+                <B.NavStyleButton onClick={retouchHendler}>
+                  수정
+                </B.NavStyleButton>
                 <B.NavStyleButton onClick={deleteHendler}>
                   삭제
                 </B.NavStyleButton>
