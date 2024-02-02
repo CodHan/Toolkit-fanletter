@@ -41,7 +41,7 @@ function JangSungYup({ data, setData }) {
       <CardBox>
         <ul>
           {filterData.length === 0 ? (
-            <p>아무도 안씀</p>
+            <p>💪🏻빨리써라 덤벨들고 찾아 간다💪🏻</p>
           ) : (
             data
               .filter((item) => item.writedTo === '장성엽')
