@@ -1,6 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
-import * as S from './commons_style/Header.style';
+import * as S from '../style/commonsStyle/Header.style';
 
 function Header() {
   return (

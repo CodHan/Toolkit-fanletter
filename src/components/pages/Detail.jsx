@@ -1,25 +1,32 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import * as S from '../page/page_style/Detail.style';
-import * as A from '../page/page_style/Page.style';
-import * as B from '../page/page_style/Nav.style';
+import * as S from '../style/pagesStyle/Detail.style';
+import * as A from '../style/pagesStyle/Letter.style';
+import * as B from '../style/commonsStyle/Nav.style';
 import { useNavigate } from 'react-router-dom';
+import { DataContext } from 'components/context/DataContext';
 
-function Detail({ data, setData }) {
+function Detail() {
+  const { data, setData } = useContext(DataContext);
   const [retouch, setRetouch] = useState(false);
   const [update, setUpdate] = useState();
   const { id } = useParams();
   const navigate = useNavigate();
-  const item = data.find((item) => item.id === id);
+  const findData = data.find((item) => item.id === id);
   //뒤로가기
   const backBtnHendler = () => {
     navigate(-1);
   };
   // 삭제버튼
   const deleteHendler = () => {
-    const deleateData = data.filter((item) => item.id !== id);
-    setData(deleateData);
-    navigate(-1);
+    const updateValidation = window.confirm('정말 삭제 할까요?');
+    if (updateValidation) {
+      const deleateData = data.filter((item) => item.id !== id);
+      navigate('/');
+      setData(deleateData);
+    } else {
+      return;
+    }
   };
   //수정버튼
   const retouchHendler = () => {
@@ -35,6 +42,7 @@ function Detail({ data, setData }) {
         }
         return item;
       });
+      window.confirm('수정 완료 !!');
       setData(updateContent);
     }
     setRetouch(false);
@@ -49,23 +57,23 @@ function Detail({ data, setData }) {
         <div>
           <S.LetterHeader>
             <S.UserWrapper>
-              <A.Img src={item.avatar} alt="유저이미지" />
-              <S.StyleSpan>{item.nickname}</S.StyleSpan>
+              <A.Img src={findData.avatar} alt="유저이미지" />
+              <S.StyleSpan>{findData.nickname}</S.StyleSpan>
             </S.UserWrapper>
             <S.Time>
-              <S.StyleSpan>{item.createdAt}</S.StyleSpan>
+              <S.StyleSpan>{findData.createdAt}</S.StyleSpan>
             </S.Time>
           </S.LetterHeader>
-          <S.WriteTo>To:{item.writedTo}</S.WriteTo>
+          <S.WriteTo>To:{findData.writedTo}</S.WriteTo>
           {retouch === true ? (
             <>
               <S.EditingTextArea
-                defaultValue={item.content}
+                defaultValue={findData.content}
                 onChange={(e) => setUpdate(e.target.value)}
               />
             </>
           ) : (
-            <S.ContentText>{item.content}</S.ContentText>
+            <S.ContentText>{findData.content}</S.ContentText>
           )}
         </div>
         <S.Buttons>

@@ -41,12 +41,13 @@ export const BodyText = styled.p`
   text-overflow: ellipsis;
 `;
 
-export const BoxStyle = styled.div`
+export const BoxStyle = styled.ul`
   width: 400px;
   height: 300px;
   margin: 5px auto 0 auto;
   background-color: aquamarine;
   border-radius: 10px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;

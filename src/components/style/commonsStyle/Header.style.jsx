@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import image from '../../image/header.png';
+import image from '../image/header.png';
 export const HederBackGround = styled.header`
   background-image: url(${image});
   display: flex;

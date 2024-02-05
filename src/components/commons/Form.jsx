@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import uuid from 'react-uuid';
-import * as S from './commons_style/Form.style';
+import * as S from '../style/commonsStyle/Form.style';
+import { DataContext } from 'components/context/DataContext';
 
-function Form({ data, setData }) {
+function Form() {
+  const { data, setData } = useContext(DataContext);
   const [name, setName] = useState('');
   const [content, setContent] = useState('');
   const [member, setMember] = useState('김강민');
@@ -28,10 +30,8 @@ function Form({ data, setData }) {
     setData([...data, newData]);
     setName('');
     setContent('');
-    setMember('김강민'); //다시 김강민으로 돌리는게 안됨
   };
   const selectMember = (e) => {
-    console.log(e.target.value);
     setMember(e.target.value);
   };
 
