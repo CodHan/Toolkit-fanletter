@@ -11,9 +11,8 @@ function Letter({ selctName }) {
     <S.BoxStyle>
       {findData.map((item) => {
         return (
-          <>
+          <div key={item.id}>
             {/*  cardbox굳이 써야하나 */}
-            {/* 16번째줄 주시 */}
             {item.length === 0 ? (
               <p>💪🏻빨리써라 덤벨들고 찾아 간다💪🏻</p>
             ) : (
@@ -30,7 +29,7 @@ function Letter({ selctName }) {
                 <S.BodyText>{item.content}</S.BodyText>
               </S.Letter>
             )}
-          </>
+          </div>
         );
       })}
     </S.BoxStyle>
