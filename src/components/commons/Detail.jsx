@@ -10,7 +10,7 @@ function Detail({ data, setData }) {
   const [update, setUpdate] = useState();
   const { id } = useParams();
   const navigate = useNavigate();
-  const filterData = data.filter((item) => item.id === id);
+  const item = data.find((item) => item.id === id);
   //뒤로가기
   const backBtnHendler = () => {
     navigate(-1);
@@ -26,80 +26,63 @@ function Detail({ data, setData }) {
     setRetouch(true);
   };
   //수정완료버튼
-  const submitMessage = () => {
-    window.confirm('이대로 수정 하시겠습니까?');
-    retouchSubmit();
-  };
-  const retouchSubmit = () => {
-    if (!update) {
-      return alert('수정 된 부분이 없습니다.'), setRetouch(false);
-    }
-
-    // if (update) {
-    //   return submitMessage;
-    // }
-    else if (update) {
-      setData((prevData) => {
-        return prevData.map((item) => {
-          item.content = update;
-          return item;
-        });
+  const updateBtnHendler = () => {
+    const updateValidation = window.confirm('이대로 수정 하시겠습니까?');
+    if (updateValidation) {
+      const updateContent = data.map((item) => {
+        if (item.id === id) {
+          return { ...item, content: update };
+        }
+        return item;
       });
-      window.confirm('수정되었습니다');
-      navigate(-1);
+      setData(updateContent);
     }
-    // if (!submitMessage) {
-    //   return alert('수정 된 부분이 없습니다.');
-    // }
+    setRetouch(false);
+    if (!updateValidation) {
+      return window.confirm('수정이 취소 되었습니다.'), setRetouch(false);
+    }
   };
-
-  return filterData.map((item) => {
-    return (
-      <S.Container>
-        <S.ToHome onClick={backBtnHendler}>뒤로가기</S.ToHome>
-        <S.DetailWrapper>
-          <div>
-            <S.LetterHeader>
-              <S.UserWrapper>
-                <A.Img src={item.avatar} alt="유저이미지" />
-                <S.StyleSpan>{item.nickname}</S.StyleSpan>
-              </S.UserWrapper>
-              <S.Time>
-                <S.StyleSpan>{item.createdAt}</S.StyleSpan>
-              </S.Time>
-            </S.LetterHeader>
-            <S.WriteTo>To:{item.writedTo}</S.WriteTo>
-            {retouch === true ? (
-              <>
-                <S.EditingTextArea
-                  defaultValue={item.content}
-                  onChange={(e) => setUpdate(e.target.value)}
-                />
-              </>
-            ) : (
-              <S.ContentText>{item.content}</S.ContentText>
-            )}
-          </div>
-          <S.Buttons>
-            {retouch === true ? (
-              <B.NavStyleButton onClick={submitMessage}>
-                수정완료
-              </B.NavStyleButton>
-            ) : (
-              <>
-                <B.NavStyleButton onClick={retouchHendler}>
-                  수정
-                </B.NavStyleButton>
-                <B.NavStyleButton onClick={deleteHendler}>
-                  삭제
-                </B.NavStyleButton>
-              </>
-            )}
-          </S.Buttons>
-        </S.DetailWrapper>
-      </S.Container>
-    );
-  });
+  return (
+    <S.Container>
+      <S.ToHome onClick={backBtnHendler}>뒤로가기</S.ToHome>
+      <S.DetailWrapper>
+        <div>
+          <S.LetterHeader>
+            <S.UserWrapper>
+              <A.Img src={item.avatar} alt="유저이미지" />
+              <S.StyleSpan>{item.nickname}</S.StyleSpan>
+            </S.UserWrapper>
+            <S.Time>
+              <S.StyleSpan>{item.createdAt}</S.StyleSpan>
+            </S.Time>
+          </S.LetterHeader>
+          <S.WriteTo>To:{item.writedTo}</S.WriteTo>
+          {retouch === true ? (
+            <>
+              <S.EditingTextArea
+                defaultValue={item.content}
+                onChange={(e) => setUpdate(e.target.value)}
+              />
+            </>
+          ) : (
+            <S.ContentText>{item.content}</S.ContentText>
+          )}
+        </div>
+        <S.Buttons>
+          {retouch === true ? (
+            <B.NavStyleButton onClick={updateBtnHendler}>
+              수정완료
+            </B.NavStyleButton>
+          ) : (
+            <>
+              <B.NavStyleButton onClick={retouchHendler}>수정</B.NavStyleButton>
+              <B.NavStyleButton onClick={deleteHendler}>삭제</B.NavStyleButton>
+            </>
+          )}
+        </S.Buttons>
+      </S.DetailWrapper>
+    </S.Container>
+  );
 }
 
 export default Detail;
