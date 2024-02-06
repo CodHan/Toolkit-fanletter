@@ -1,19 +1,19 @@
-import { DataContext } from 'components/context/DataContext';
-import React, { useContext } from 'react';
 import * as S from '../style/pagesStyle/Letter.style';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function Letter({ selctName }) {
-  const { data } = useContext(DataContext);
+  const data = useSelector((state) => state.letters);
   const navigate = useNavigate();
-  const findData = data.filter((item) => item.writedTo === selctName);
+  const filterdData = data.filter((item) => item.writedTo === selctName);
   return (
     <S.BoxStyle>
-      {findData.map((item) => {
+      {filterdData.map((item) => {
         return (
           <div key={item.id}>
             {/*  cardbox굳이 써야하나 */}
-            {item.length === 0 ? (
+            {/* 17번줄 안나옴 */}
+            {item === null ? (
               <p>💪🏻빨리써라 덤벨들고 찾아 간다💪🏻</p>
             ) : (
               <S.Letter onClick={() => navigate(`/detail/${item.id}`)}>

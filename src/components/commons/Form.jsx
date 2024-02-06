@@ -1,10 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import uuid from 'react-uuid';
 import * as S from '../style/commonsStyle/Form.style';
-import { DataContext } from 'components/context/DataContext';
+import { useDispatch } from 'react-redux';
+import { addLetter } from '../../redux/modules/letters';
 
 function Form() {
-  const { data, setData } = useContext(DataContext);
+  // const { data, setData } = useContext(DataContext);
+  const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [content, setContent] = useState('');
   const [member, setMember] = useState('김강민');
@@ -27,7 +29,9 @@ function Form() {
       writedTo: member,
       id: uuid(),
     };
-    setData([...data, newData]);
+    dispatch(addLetter(newData));
+    // setData([...data, newData]);
+
     setName('');
     setContent('');
   };

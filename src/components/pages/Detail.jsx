@@ -1,13 +1,16 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import * as S from '../style/pagesStyle/Detail.style';
 import * as A from '../style/pagesStyle/Letter.style';
 import * as B from '../style/commonsStyle/Nav.style';
 import { useNavigate } from 'react-router-dom';
-import { DataContext } from 'components/context/DataContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteLetter, updateLetter } from '../../redux/modules/letters';
 
 function Detail() {
-  const { data, setData } = useContext(DataContext);
+  const data = useSelector((state) => state.letters);
+  const dispatch = useDispatch();
+
   const [retouch, setRetouch] = useState(false);
   const [update, setUpdate] = useState();
   const { id } = useParams();
@@ -21,9 +24,8 @@ function Detail() {
   const deleteHendler = () => {
     const updateValidation = window.confirm('정말 삭제 할까요?');
     if (updateValidation) {
-      const deleateData = data.filter((item) => item.id !== id);
       navigate('/');
-      setData(deleateData);
+      dispatch(deleteLetter(id));
     } else {
       return;
     }
@@ -36,14 +38,12 @@ function Detail() {
   const updateBtnHendler = () => {
     const updateValidation = window.confirm('이대로 수정 하시겠습니까?');
     if (updateValidation) {
-      const updateContent = data.map((item) => {
-        if (item.id === id) {
-          return { ...item, content: update };
-        }
-        return item;
-      });
-      window.confirm('수정 완료 !!');
-      setData(updateContent);
+      if (update) {
+        dispatch(updateLetter({ update, id }));
+      } else {
+        window.confirm('수정된 부분이 없어요');
+        return setRetouch(false);
+      }
     }
     setRetouch(false);
     if (!updateValidation) {
