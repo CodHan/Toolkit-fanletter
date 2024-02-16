@@ -9,7 +9,6 @@ export const Img = styled.img`
 export const Letter = styled.li`
   display: flex;
   width: 350px;
-  height: 150px;
   flex-direction: column;
   padding: 20px;
   border: 3px solid black;
