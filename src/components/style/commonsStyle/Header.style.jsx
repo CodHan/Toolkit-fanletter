@@ -4,14 +4,13 @@ export const HederBackGround = styled.header`
   background-image: url(${image});
   display: flex;
   justify-content: center;
-  background-size: cover;
-  width: 1097px;
+  background-size: contain;
+  width: 100%;
   height: 200px;
   align-items: center;
 `;
 
 export const HeaderTitle = styled.div`
-  display: flex;
   justify-content: center;
   width: 350px;
   height: 50px;
