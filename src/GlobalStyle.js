@@ -92,7 +92,10 @@ video {
 h1{
   font-family: 'Song Myung', serif;
 }
-
+a {
+  text-decoration: none;
+  color: #333;
+}
 article,
 aside,
 details,
