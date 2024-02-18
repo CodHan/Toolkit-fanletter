@@ -1,3 +1,4 @@
+import Loding from 'components/commons/Loding';
 import Detail from 'components/pages/Detail';
 import MainPage from 'components/pages/MainPage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -9,6 +10,8 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="detail/:id" element={<Detail />} />
+          <Route path="detail/:id" element={<Detail />} />
+          <Route path="..." element={<Loding />} />
         </Routes>
       </BrowserRouter>
     </div>
