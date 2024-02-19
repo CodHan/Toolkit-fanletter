@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import * as S from '../style/pagesStyle/SignupPage.style';
-// import { createUserWithEmailAndPassword } from 'firebase/auth';
-// import { auth, db } from '../../firesbase';
 import { useNavigate } from 'react-router-dom';
-// import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import { MainStyle } from '../style/pagesStyle/LoginPage.style';
+import jwt from '../../axios/jwt';
 
 function SignUpPage() {
   const [emailTxt, setEmailTxt] = useState('');
@@ -22,22 +20,6 @@ function SignUpPage() {
   const [disabled, setDisabled] = useState(true);
 
   const navigate = useNavigate();
-
-  // const addUser = async (email, nickName) => {
-  //   const userRef = collection(db, 'users');
-  //   const userQuery = query(userRef, where('email', '==', email));
-  //   const querySnapshot = await getDocs(userQuery);
-  //   if (querySnapshot.size === 0) {
-  //     const newUser = { email: email, nickName: nickName };
-  //     const collectionRef = collection(db, 'users');
-  //     await addDoc(collectionRef, newUser);
-  //     alert('회원가입 성공!');
-  //     navigate('/loginpage');
-  //   } else {
-  //     alert('이미 가입된 이메일입니다.');
-  //     emailTxt('');
-  //   }
-  // };
 
   const emailTextHandler = (e) => {
     setEmailTxt(e.target.value);
@@ -97,17 +79,23 @@ function SignUpPage() {
 
   const subBtn = async (e) => {
     e.preventDefault();
-    // try {
-    //   addUser(email, nickName);
-    //   const userCredential = await createUserWithEmailAndPassword(
-    //     auth,
-    //     email,
-    //     pw
-    //   );
-    // } catch (error) {
-    //   setEmailTxt('');
-    //   setEmailValid(false);
-    // }
+    const postUser = async () => {
+      try {
+        const request = await jwt
+          .post('/register', {
+            id: email,
+            password: pw,
+            nickname: nickName,
+          })
+          .then((response) => {
+            console.log(response);
+            navigate('/');
+          });
+      } catch (error) {
+        console.error('에러가 발생하였습니다.', error);
+      }
+    };
+    postUser();
   };
 
   useEffect(() => {

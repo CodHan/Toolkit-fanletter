@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as S from '../style/pagesStyle/LoginPage.style';
-// import { signInWithEmailAndPassword } from 'firebase/auth';
-// import { auth } from '../../firesbase';
-// import Header from '../commons/Header';
-// import SocialLoginBtn from '../commons/SocialLoginBtn';
+import { useDispatch } from 'react-redux';
+import jwt from '../../axios/jwt';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -14,6 +12,7 @@ function LoginPage() {
   const [disabled, setDisabled] = useState(true);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (emailValid && pwValid) {
@@ -46,7 +45,15 @@ function LoginPage() {
   const signInBtn = async (e) => {
     e.preventDefault();
     try {
-      // const userCredential = await signInWithEmailAndPassword(auth, email, pw);
+      const request = await jwt
+        .post('/login?expiresIn=1m', {
+          id: email,
+          password: pw,
+        })
+        .then((response) => {
+          console.log(response.data.accessToken);
+          localStorage.setItem('token', response.data.accessToken);
+        });
       alert('로그인 되었습니다.');
       navigate('/mainpage');
     } catch (error) {

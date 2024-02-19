@@ -11,10 +11,11 @@ export const Letter = styled.li`
   width: 350px;
   flex-direction: column;
   padding: 20px;
-  border: 3px solid black;
+
   border-radius: 5px;
   cursor: pointer;
   margin-top: 10px;
+  margin-bottom: 10px;
   &:hover {
     transition: all 0.2s;
     transform: scale(1.05);
@@ -42,7 +43,7 @@ export const BodyText = styled.p`
 
 export const BoxStyle = styled.ul`
   width: 400px;
-  height: 300px;
+
   margin: 5px auto 0 auto;
   background-color: aquamarine;
   border-radius: 10px;

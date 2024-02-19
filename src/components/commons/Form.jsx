@@ -1,38 +1,30 @@
 import React, { useState } from 'react';
-import uuid from 'react-uuid';
 import * as S from '../style/commonsStyle/Form.style';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addLetter } from '../../redux/modules/letters';
 
 function Form() {
-  // const { data, setData } = useContext(DataContext);
   const dispatch = useDispatch();
-  const [name, setName] = useState('');
   const [content, setContent] = useState('');
   const [member, setMember] = useState('김강민');
+  const auth = useSelector((state) => state.authSlice);
 
-  const nameValue = (e) => {
-    setName(e.target.value);
-  };
   const contentValue = (e) => {
     setContent(e.target.value);
   };
   const onSubmit = (e) => {
     e.preventDefault();
     const date = new Date();
-    const newData = {
+    const newLetter = {
+      email: auth.userId,
+      nickname: auth.nickname,
       createdAt: date.toLocaleString(),
-      nickname: name,
       avatar:
         'https://e7.pngegg.com/pngimages/1010/196/png-clipart-social-networking-site-default-profile-forehead-silhouette-face-monochrome-contacts-face-monochrome.png',
       content: content,
       writedTo: member,
-      id: uuid(),
     };
-    dispatch(addLetter(newData));
-    // setData([...data, newData]);
-
-    setName('');
+    dispatch(addLetter(newLetter));
     setContent('');
   };
   const selectMember = (e) => {
@@ -42,15 +34,7 @@ function Form() {
   return (
     <>
       <S.FormParent onSubmit={onSubmit}>
-        <S.Formdiv>
-          닉네임:
-          <input
-            value={name}
-            type="text"
-            placeholder="최대 20글자까지 작성할 수 있습니다."
-            onChange={nameValue}
-          />
-        </S.Formdiv>
+        <S.Formdiv>닉네임:{auth.nickname}</S.Formdiv>
         <S.Formdiv>
           내용 :
           <S.ContentInputStyle
