@@ -33,13 +33,26 @@ export const HeaderNav = styled.div`
   padding-left: 15px;
 `;
 export const LinkStyle = styled(Link)`
+  box-shadow: inset 0 0 0 0 red;
   color: white;
   font-size: 30px;
+  transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  &:hover {
+    color: #ffffff;
+    box-shadow: inset 0 -200px 0 0 red;
+  }
 `;
 export const LogOutLink = styled(Link)`
-  color: red;
+  box-shadow: inset 0 0 0 0 red;
+  color: white;
   font-size: 30px;
-  padding: 0 25px 0 25px;
+  transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  &:hover {
+    color: #ffffff;
+    box-shadow: inset 0 -200px 0 0 red;
+  }
+  margin-left: 25px;
+  margin-right: 25px;
 `;
 export const HOME = styled.div`
   display: flex;

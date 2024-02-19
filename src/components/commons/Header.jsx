@@ -8,7 +8,7 @@ function Header() {
         <S.LinkStyle to={'/mainpage'}>HOME</S.LinkStyle>
         <S.MYPAGE>
           <S.LinkStyle to={'/mypage'}>MY PAGE</S.LinkStyle>
-          <S.LogOutLink to={''}>LOGOUT</S.LogOutLink>
+          <S.LogOutLink to={'#'}>LOGOUT</S.LogOutLink>
         </S.MYPAGE>
       </S.HeaderNav>
       <S.HederBackGround>
