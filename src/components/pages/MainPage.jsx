@@ -17,7 +17,7 @@ function MainPage() {
       try {
         const token = localStorage.getItem('token');
 
-        //병렬로 db데이터와user데이터
+        //병렬로 db데이터와user데이터 처리
         const [lettersResponse, userResponse] = await Promise.all([
           api.get('/letters'),
           jwt.get('user', {
