@@ -5,11 +5,7 @@ import * as A from '../style/pagesStyle/Letter.style';
 import * as B from '../style/commonsStyle/Nav.style';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  __deleteLetter,
-  __updateLetter,
-  updateLetter,
-} from '../../redux/modules/letters';
+import { __deleteLetter, __updateLetter } from '../../redux/modules/letters';
 
 function Detail() {
   const { letters } = useSelector((state) => state.letters);

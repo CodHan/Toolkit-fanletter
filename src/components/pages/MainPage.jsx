@@ -23,6 +23,7 @@ function MainPage() {
         dispatch(login(userResponse.data));
       } catch (error) {
         console.error('에러가 발생했습니다', error);
+        alert(error.message);
       }
     };
     fetchData();

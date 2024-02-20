@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import * as S from '../style/commonsStyle/Form.style';
 import { useDispatch, useSelector } from 'react-redux';
-import { __addLetter, addLetter } from '../../redux/modules/letters';
+import { __addLetter } from '../../redux/modules/letters';
 
 function Form() {
   const dispatch = useDispatch();
   const [content, setContent] = useState('');
   const [member, setMember] = useState('김강민');
   const auth = useSelector((state) => state.authSlice);
-  console.log(auth.id);
 
   const contentValue = (e) => {
     setContent(e.target.value);
@@ -21,7 +20,7 @@ function Form() {
       nickname: auth.nickname,
       createdAt: date.toLocaleString(),
       avatar:
-        'https://e7.pngegg.com/pngimages/1010/196/png-clipart-social-networking-site-default-profile-forehead-silhouette-face-monochrome-contacts-face-monochrome.png',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0-wIQzJerlC3TiH7jCDnO_iJa58qLPCCl5GsYWNdQHu7AGJhxM1vYT6cpbQ&s',
       content: content,
       writedTo: member,
     };
