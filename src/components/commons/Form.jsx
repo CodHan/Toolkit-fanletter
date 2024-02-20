@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import * as S from '../style/commonsStyle/Form.style';
 import { useDispatch, useSelector } from 'react-redux';
-import { addLetter } from '../../redux/modules/letters';
+import { __addLetter, addLetter } from '../../redux/modules/letters';
 
 function Form() {
   const dispatch = useDispatch();
   const [content, setContent] = useState('');
   const [member, setMember] = useState('김강민');
   const auth = useSelector((state) => state.authSlice);
+  console.log(auth.id);
 
   const contentValue = (e) => {
     setContent(e.target.value);
@@ -16,7 +17,7 @@ function Form() {
     e.preventDefault();
     const date = new Date();
     const newLetter = {
-      email: auth.userId,
+      email: auth.id,
       nickname: auth.nickname,
       createdAt: date.toLocaleString(),
       avatar:
@@ -24,7 +25,7 @@ function Form() {
       content: content,
       writedTo: member,
     };
-    dispatch(addLetter(newLetter));
+    dispatch(__addLetter(newLetter));
     setContent('');
   };
   const selectMember = (e) => {

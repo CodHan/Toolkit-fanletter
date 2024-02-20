@@ -5,17 +5,21 @@ import * as A from '../style/pagesStyle/Letter.style';
 import * as B from '../style/commonsStyle/Nav.style';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteLetter, updateLetter } from '../../redux/modules/letters';
+import {
+  __deleteLetter,
+  __updateLetter,
+  updateLetter,
+} from '../../redux/modules/letters';
 
 function Detail() {
-  const data = useSelector((state) => state.letters);
+  const { letters } = useSelector((state) => state.letters);
   const dispatch = useDispatch();
 
   const [retouch, setRetouch] = useState(false);
   const [update, setUpdate] = useState();
   const { id } = useParams();
   const navigate = useNavigate();
-  const findData = data.find((item) => item.id === id);
+  const findData = letters.find((item) => item.id === id);
   //뒤로가기
   const backBtnHendler = () => {
     navigate(-1);
@@ -24,8 +28,8 @@ function Detail() {
   const deleteHendler = () => {
     const updateValidation = window.confirm('정말 삭제 할까요?');
     if (updateValidation) {
-      navigate('/');
-      dispatch(deleteLetter(id));
+      navigate('/mainpage');
+      dispatch(__deleteLetter(id));
     } else {
       return;
     }
@@ -39,7 +43,8 @@ function Detail() {
     const updateValidation = window.confirm('이대로 수정 하시겠습니까?');
     if (updateValidation) {
       if (update) {
-        dispatch(updateLetter({ update, id }));
+        dispatch(__updateLetter({ update, id }));
+        navigate('/mainpage');
       } else {
         window.confirm('수정된 부분이 없어요');
         return setRetouch(false);

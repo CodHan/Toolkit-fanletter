@@ -1,11 +1,25 @@
 import * as S from '../style/pagesStyle/Letter.style';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { __getLetters, addLetter } from '../../redux/modules/letters';
+import Loding from './Loding';
 
 function Letter({ selctName }) {
-  const data = useSelector((state) => state.letters);
+  const { isLoding, letters, error } = useSelector((state) => state.letters);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const filterdData = data.filter((item) => item.writedTo === selctName);
+  useEffect(() => {
+    dispatch(__getLetters());
+  }, []);
+  if (isLoding) {
+    return <Loding />;
+  }
+  if (error) {
+    alert(error.message);
+  }
+  const filterdData = letters.filter((item) => item.writedTo === selctName);
+
   return (
     <>
       {filterdData.map((item) => {

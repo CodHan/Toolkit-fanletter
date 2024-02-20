@@ -46,7 +46,7 @@ function LoginPage() {
     e.preventDefault();
     try {
       const request = await jwt
-        .post('/login?expiresIn=1m', {
+        .post('/login', {
           id: email,
           password: pw,
         })
