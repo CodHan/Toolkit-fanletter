@@ -9,6 +9,7 @@ import { __deleteLetter, __updateLetter } from '../../redux/modules/letters';
 
 function Detail() {
   const { letters } = useSelector((state) => state.letters);
+  const auth = useSelector((state) => state.authSlice);
   const dispatch = useDispatch();
 
   const [retouch, setRetouch] = useState(false);
@@ -77,18 +78,24 @@ function Detail() {
             <S.ContentText>{findData.content}</S.ContentText>
           )}
         </div>
-        <S.Buttons>
-          {retouch === true ? (
-            <B.NavStyleButton onClick={updateBtnHendler}>
-              수정완료
-            </B.NavStyleButton>
-          ) : (
-            <>
-              <B.NavStyleButton onClick={retouchHendler}>수정</B.NavStyleButton>
-              <B.NavStyleButton onClick={deleteHendler}>삭제</B.NavStyleButton>
-            </>
-          )}
-        </S.Buttons>
+        {auth.id === findData.email && (
+          <S.Buttons>
+            {retouch === true ? (
+              <B.NavStyleButton onClick={updateBtnHendler}>
+                수정완료
+              </B.NavStyleButton>
+            ) : (
+              <>
+                <B.NavStyleButton onClick={retouchHendler}>
+                  수정
+                </B.NavStyleButton>
+                <B.NavStyleButton onClick={deleteHendler}>
+                  삭제
+                </B.NavStyleButton>
+              </>
+            )}
+          </S.Buttons>
+        )}
       </S.DetailWrapper>
     </S.Container>
   );

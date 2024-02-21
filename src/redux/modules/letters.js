@@ -11,7 +11,10 @@ export const __getLetters = createAsyncThunk(
   async (payload, thunkApi) => {
     try {
       const data = await api.get('/letters');
-      return thunkApi.fulfillWithValue(data.data);
+      const sortData = data.data.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+      return sortData;
     } catch (error) {
       return thunkApi.rejectWithValue(error);
     }

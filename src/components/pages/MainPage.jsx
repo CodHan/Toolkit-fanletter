@@ -6,9 +6,11 @@ import Nav from 'components/commons/Nav';
 import { useDispatch } from 'react-redux';
 import jwt from '../../axios/jwt';
 import { login } from '../../redux/modules/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 function MainPage() {
   const [selctName, setSelectName] = useState('김강민');
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchData = async () => {
@@ -23,7 +25,8 @@ function MainPage() {
         dispatch(login(userResponse.data));
       } catch (error) {
         console.error('에러가 발생했습니다', error);
-        alert(error.message);
+        alert(error.response.data.message);
+        navigate('/');
       }
     };
     fetchData();

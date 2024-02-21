@@ -16,7 +16,7 @@ function Letter({ selctName }) {
     return <Loding />;
   }
   if (error) {
-    alert(error.message);
+    alert(error.data.message);
   }
   const filterdData = letters.filter((item) => item.writedTo === selctName);
 
