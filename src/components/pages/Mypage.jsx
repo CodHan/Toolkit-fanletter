@@ -10,8 +10,20 @@ function Mypage() {
   const [updateMod, setUpdateMod] = useState(false);
 
   const fileInputRef = useRef(null);
-  const auth = useSelector((state) => state.authSlice);
-
+  const { user, error } = useSelector((state) => state.authSlice);
+  if (error) {
+    alert(error.data.message);
+  }
+  const handleCancelBtn = () => {
+    const confirm = window.confirm(
+      '변경 취소 하시겠습니까? 변경사항이 저장되지 않습니다.'
+    );
+    if (confirm) {
+      setUpdateMod(false);
+      setChangeImage();
+    }
+    return;
+  };
   const imageUpdate = () => {
     fileInputRef.current.click();
   };
@@ -21,6 +33,7 @@ function Mypage() {
     reder.onload = () => {
       if (reder.readyState === 2) {
         setChangeImage(reder.result);
+        console.log(reder.result);
       }
     };
     reder.readAsDataURL(e.target.files[0]);
@@ -39,7 +52,7 @@ function Mypage() {
           {/* 업데이트 모드일때 onClick이 있는 프로필을 보여준다. */}
           {updateMod ? (
             // 계정의 아바타가 없을때 기본이미지
-            !auth.avatar ? (
+            !user.avatar ? (
               <UserImage
                 src={
                   !changeImage
@@ -52,19 +65,19 @@ function Mypage() {
             ) : (
               //계정의 아바타가 있으면 설정한 이미지
               <UserImage
-                src={auth.avatar}
+                src={user.avatar}
                 alt="프로필 이미지"
                 onClick={imageUpdate}
               />
             )
           ) : //리드모드일때 onClick이 없는 이미지만 보여줌
-          !auth.avatar ? (
+          !user.avatar ? (
             <UserImage
               src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMwAAADACAMAAAB/Pny7AAAAY1BMVEX///8AAAA+Pj6+vr7o6OhLS0vCwsJfX18lJSXl5eUgICAbGxvb29vLy8suLi4xMTGysrLv7++Li4ugoKB5eXmDg4NoaGgODg5GRkbV1dWZmZmnp6cUFBT29va4uLg2NjZVVVUD9+FsAAACvklEQVR4nO3c61KjMBiAYQ6thFMpikBPtvd/ldZZVyEkthHSIfg+P9kxfK+7UxhK1vMAAAAAAAAAAAAAAAAAAAAALFK+VQhjm6eMQ9U589HrZq1IFRKxn2Bojb1IVOcUbTZu3bLwdcJpJh8KtacsylEL77QL+9FEsw9E+nPuRi38pF94PdHsA2v9OZ9GLUzMSLZjqpeOvXhEjNh3z1lNGNP75CqDR8QEvU+u0FbM6jExq+6x38TEWV98mFfMYTCgdpWnTSJL5xWTDgbcaP6yfrhAziVGRX0hrdyMqZSL6G/DZh1TKBfZuBmz+Ssxx9fnjnpeMXV3ttfjzRiRnTre5hXz1p0tE7djetehOd8BxMQQ83vEyIixgBgZMRYQIzubxVwmmVzhYhZz7h47Pa+DD61vFtO0gRVtYxbj/5tj/Xy6HvL77o6x7P6YL/HgmbvDMZHXSEccjmk8eRGHY/wlxjRJIkxjxODx4iSEacx1jqYXU+dZbHjRbOXnvhOJW7OYTZzldS+mKl2+AygrYoh5eMzp/4Nz52KK6+1lP6YO850wiwlySwKzGLHLw/6nWZOmiW8W4ytfcBnvc477rzPXOfrXmW8LuAP45nTMUTrgcMzRq6UjDsfUXikdcTjm452Olzr6UDdmMWlkSWoW03yO/9L9s0U8nfni7u2MAjEWECMjxgJiZMRYQIxsiTFZ2bGdV8y2O9sdbzU1VVc0r5ioN1xzM0ZpLjEqfyBmUW/PLuq95szNGM2uuvwy+E6+mFdMMXj34KLf8BjLZrdLQ2ay8JzvAIwtcWdT/03v5BExierNd3YDfiFmJGsxP1xI64lmH5C/l+gYt+281P+axm/P18j1/xjG7Tr3sigoFM7tYZrJVQ7tWXXOIBr5/wFc7UKFfHX7B39vlavOOW7/PAAAAAAAAAAAAAAAAAAAALAs7zYDXJ9MBjCuAAAAAElFTkSuQmCC"
               alt="프로필 이미지"
             />
           ) : (
-            <UserImage src={auth.avatar} alt="프로필 이미지" />
+            <UserImage src={user.avatar} alt="프로필 이미지" />
           )}
           <input
             type="file"
@@ -77,22 +90,15 @@ function Mypage() {
             {updateMod ? (
               <>
                 <NickNameArea
-                  defaultValue={auth.nickname}
+                  defaultValue={user.nickname}
                   onChange={(e) => setUpdateNickName(e.target.value)}
                 />
                 <UpdateBtn>수정완료</UpdateBtn>
-                <UpdateBtn
-                  onClick={() => {
-                    setUpdateMod(false);
-                    setChangeImage();
-                  }}
-                >
-                  취소
-                </UpdateBtn>
+                <CancelBtn onClick={handleCancelBtn}>취소</CancelBtn>
               </>
             ) : (
               <>
-                <NickName>{auth.nickname}</NickName>
+                <NickName>{user.nickname}</NickName>
                 <UpdateBtn
                   onClick={() => {
                     setUpdateMod(true);
@@ -180,4 +186,17 @@ const NickName = styled.p`
   font-size: 25px;
   background: black;
   color: white;
+`;
+const CancelBtn = styled.button`
+  width: 400px;
+  height: 50px;
+  margin-top: 15px;
+  background-color: black;
+  color: #ccc;
+  font-size: 20px;
+  cursor: pointer;
+  &:hover {
+    background: #464646;
+    transition: 0.2s;
+  }
 `;

@@ -3,7 +3,6 @@ import * as S from '../style/commonsStyle/Form.style';
 import { useDispatch, useSelector } from 'react-redux';
 import { __addLetter } from '../../redux/modules/letters';
 import { __getUser } from '../../redux/modules/authSlice';
-import Loding from './Loding';
 
 function Form() {
   const dispatch = useDispatch();
