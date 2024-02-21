@@ -25,6 +25,24 @@ export const __getUser = createAsyncThunk(
     }
   }
 );
+export const __updateUser = createAsyncThunk(
+  'authSlice/updateUser',
+  async (payload, thunkApi) => {
+    try {
+      const token = localStorage.getItem('token');
+      const updateResponse = await jwt.patch('/profile', payload, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(updateResponse);
+      return;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: 'user',
