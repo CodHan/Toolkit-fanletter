@@ -1,7 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import * as H from '../style/commonsStyle/Header.style';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { __getUser } from '../../redux/modules/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 function Mypage() {
   const [updateNickName, setUpdateNickName] = useState();
@@ -9,10 +11,18 @@ function Mypage() {
   const [changeImage, setChangeImage] = useState();
   const [updateMod, setUpdateMod] = useState(false);
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const fileInputRef = useRef(null);
   const { user, error } = useSelector((state) => state.authSlice);
+  //새로고침, error대응
+  useEffect(() => {
+    dispatch(__getUser());
+  }, []);
   if (error) {
-    alert(error.data.message);
+    alert(error.response.data.message);
+    navigate('/');
+    localStorage.removeItem('token');
   }
   const handleCancelBtn = () => {
     const confirm = window.confirm(
@@ -24,9 +34,11 @@ function Mypage() {
     }
     return;
   };
+  //이미지 클릭
   const imageUpdate = () => {
     fileInputRef.current.click();
   };
+  //input 실행
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
     const reder = new FileReader();
@@ -38,6 +50,8 @@ function Mypage() {
     };
     reder.readAsDataURL(e.target.files[0]);
   };
+  //수정완료 버튼
+  const handleUpdateBtn = () => {};
   return (
     <>
       <H.HeaderNav>
@@ -93,7 +107,7 @@ function Mypage() {
                   defaultValue={user.nickname}
                   onChange={(e) => setUpdateNickName(e.target.value)}
                 />
-                <UpdateBtn>수정완료</UpdateBtn>
+                <UpdateBtn onClick={handleUpdateBtn}>수정완료</UpdateBtn>
                 <CancelBtn onClick={handleCancelBtn}>취소</CancelBtn>
               </>
             ) : (

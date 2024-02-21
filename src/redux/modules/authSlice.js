@@ -21,8 +21,6 @@ export const __getUser = createAsyncThunk(
 
       return userResponse.data;
     } catch (error) {
-      console.error('에러가 발생했습니다', error);
-
       return thunkApi.rejectWithValue(error);
     }
   }
@@ -45,9 +43,9 @@ const authSlice = createSlice({
         state.isLoding = false;
         state.user = action.payload;
       })
-      .addCase(__getUser.rejected, (state) => {
+      .addCase(__getUser.rejected, (state, action) => {
         state.isLoding = false;
-        // state.error = action.payload;
+        state.error = action.payload;
       });
   },
 });

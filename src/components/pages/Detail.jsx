@@ -1,21 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import * as S from '../style/pagesStyle/Detail.style';
 import * as A from '../style/pagesStyle/Letter.style';
 import * as B from '../style/commonsStyle/Nav.style';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { __deleteLetter, __updateLetter } from '../../redux/modules/letters';
+import {
+  __deleteLetter,
+  __getLetters,
+  __updateLetter,
+} from '../../redux/modules/letters';
+import Loding from 'components/commons/Loding';
 
 function Detail() {
-  const { letters } = useSelector((state) => state.letters);
+  const { letters, isLoding } = useSelector((state) => state.letters);
   const { user } = useSelector((state) => state.authSlice);
   const dispatch = useDispatch();
-
   const [retouch, setRetouch] = useState(false);
   const [update, setUpdate] = useState();
   const { id } = useParams();
+
   const navigate = useNavigate();
+  //새로고침 대응
+  useEffect(() => {
+    dispatch(__getLetters());
+  }, []);
+  if (isLoding) {
+    return <Loding />;
+  }
   const findData = letters.find((item) => item.id === id);
   //뒤로가기
   const backBtnHendler = () => {
