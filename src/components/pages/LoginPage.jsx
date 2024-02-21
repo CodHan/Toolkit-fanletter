@@ -51,7 +51,6 @@ function LoginPage() {
           password: pw,
         })
         .then((response) => {
-          console.log(response.data.accessToken);
           localStorage.setItem('token', response.data.accessToken);
         });
       alert('로그인 되었습니다.');
