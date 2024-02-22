@@ -6,6 +6,7 @@ const initialState = {
   error: null,
 };
 
+//JsonServer 데이터 가져오기
 export const __getLetters = createAsyncThunk(
   'letters/getLetters',
   async (payload, thunkApi) => {
@@ -20,6 +21,7 @@ export const __getLetters = createAsyncThunk(
     }
   }
 );
+//JsonServer 데이터 추가하기
 export const __addLetter = createAsyncThunk(
   'letters/addLetter',
   async (payload, thunkApi) => {
@@ -31,6 +33,7 @@ export const __addLetter = createAsyncThunk(
     }
   }
 );
+//JsonServer 데이터 삭제하기
 export const __deleteLetter = createAsyncThunk(
   'letters/deleteLetter',
   async (payload, thunkApi) => {
@@ -42,6 +45,7 @@ export const __deleteLetter = createAsyncThunk(
     }
   }
 );
+//JsonServer 데이터 수정하기
 export const __updateLetter = createAsyncThunk(
   'letters/updateLetter',
   async (payload, thunkApi) => {
@@ -54,6 +58,7 @@ export const __updateLetter = createAsyncThunk(
     }
   }
 );
+//JsonServer 유저프로필 수정하기
 export const __profileUpdate = createAsyncThunk(
   'letters/profileUpdate',
   async (payload, thunkApi) => {
@@ -76,6 +81,7 @@ export const lettersSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      //리덕스 상태관리 데이터 가져오기
       .addCase(__getLetters.pending, (state) => {
         state.isLoding = true;
       })
@@ -87,6 +93,7 @@ export const lettersSlice = createSlice({
         state.isLoding = false;
         state.error = action.payload;
       })
+      //리덕스 상태관리 데이터 추가하기
       .addCase(__addLetter.pending, (state) => {
         state.isLoding = true;
       })
@@ -98,6 +105,7 @@ export const lettersSlice = createSlice({
         state.isLoding = false;
         state.error = action.payload;
       })
+      //리덕스 상태관리 데이터 삭제하기
       .addCase(__deleteLetter.pending, (state) => {
         state.isLoding = true;
       })
@@ -111,6 +119,7 @@ export const lettersSlice = createSlice({
         state.isLoding = false;
         state.error = action.payload;
       })
+      //리덕스 상태관리 데이터 수정하기
       .addCase(__updateLetter.pending, (state) => {
         state.isLoding = true;
       })
@@ -128,6 +137,7 @@ export const lettersSlice = createSlice({
         state.isLoding = false;
         state.error = action.payload;
       })
+      //리덕스 상태관리 유저프로필 변경
       .addCase(__profileUpdate.pending, (state) => {
         state.isLoding = true;
       })

@@ -1,6 +1,5 @@
 import React from 'react';
 import * as S from '../style/commonsStyle/Header.style';
-import { useNavigate } from 'react-router-dom';
 
 function Header() {
   const handLogOut = () => {

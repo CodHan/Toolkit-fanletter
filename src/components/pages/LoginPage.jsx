@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as S from '../style/pagesStyle/LoginPage.style';
-import { useDispatch } from 'react-redux';
 import jwt from '../../axios/jwt';
 
 function LoginPage() {

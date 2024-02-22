@@ -8,7 +8,6 @@ span,
 applet,
 object,
 iframe,
-
 h2,
 h3,
 h4,

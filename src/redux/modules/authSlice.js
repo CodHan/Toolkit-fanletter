@@ -7,6 +7,7 @@ const initialState = {
   error: null,
 };
 
+//로그인 인증 및 현재 유저 정보
 export const __getUser = createAsyncThunk(
   'authSlice/getuser',
   async (payload, thunkApi) => {
@@ -25,6 +26,7 @@ export const __getUser = createAsyncThunk(
     }
   }
 );
+//유저 프로필 변경
 export const __updateUser = createAsyncThunk(
   'authSlice/updateUser',
   async (payload, thunkApi) => {
@@ -50,6 +52,7 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      //유저 검증 및 현재 로그인한 유저 정보
       .addCase(__getUser.pending, (state) => {
         state.isLoding = true;
       })
@@ -61,6 +64,7 @@ const authSlice = createSlice({
         state.isLoding = false;
         state.error = action.payload;
       })
+      // 유저 프로필 변경
       .addCase(__updateUser.pending, (state) => {
         state.isLoding = true;
       })

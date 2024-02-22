@@ -81,7 +81,7 @@ function SignUpPage() {
     e.preventDefault();
     const postUser = async () => {
       try {
-        const request = await jwt
+        await jwt
           .post('/register', {
             id: email,
             password: pw,

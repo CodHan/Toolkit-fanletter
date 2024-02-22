@@ -2,7 +2,7 @@ import * as S from '../style/pagesStyle/Letter.style';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { __getLetters, addLetter } from '../../redux/modules/letters';
+import { __getLetters } from '../../redux/modules/letters';
 import Loding from './Loding';
 
 function Letter({ selctName }) {
@@ -26,8 +26,6 @@ function Letter({ selctName }) {
         return (
           <S.BoxStyle key={item.id}>
             <div>
-              {/*  cardbox굳이 써야하나 */}
-              {/* 17번줄 안나옴 */}
               {item === null ? (
                 <p>💪🏻빨리써라 덤벨들고 찾아 간다💪🏻</p>
               ) : (

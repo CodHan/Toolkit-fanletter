@@ -3,7 +3,7 @@ import * as S from '../style/commonsStyle/Form.style';
 import { useDispatch, useSelector } from 'react-redux';
 import { __addLetter } from '../../redux/modules/letters';
 import { __getUser } from '../../redux/modules/authSlice';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Loding from './Loding';
 
 function Form() {
