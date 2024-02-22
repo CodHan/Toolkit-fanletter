@@ -12,7 +12,6 @@ function LoginPage() {
   const [disabled, setDisabled] = useState(true);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (emailValid && pwValid) {
@@ -45,7 +44,7 @@ function LoginPage() {
   const signInBtn = async (e) => {
     e.preventDefault();
     try {
-      const request = await jwt
+      await jwt
         .post('/login', {
           id: email,
           password: pw,

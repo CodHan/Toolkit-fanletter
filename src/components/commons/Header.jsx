@@ -1,14 +1,24 @@
 import React from 'react';
 import * as S from '../style/commonsStyle/Header.style';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+  const handLogOut = () => {
+    const confirm = window.confirm('로그아웃 하시겠습니까?');
+    if (confirm) {
+      localStorage.removeItem('token');
+      window.location.reload();
+    } else {
+      return;
+    }
+  };
   return (
     <>
       <S.HeaderNav>
         <S.LinkStyle to={'/mainpage'}>HOME</S.LinkStyle>
         <S.MYPAGE>
           <S.LinkStyle to={'/mypage'}>MY PAGE</S.LinkStyle>
-          <S.LogOutLink to={'#'}>LOGOUT</S.LogOutLink>
+          <S.LogOutLink onClick={handLogOut}>LOGOUT</S.LogOutLink>
         </S.MYPAGE>
       </S.HeaderNav>
       <S.HederBackGround>

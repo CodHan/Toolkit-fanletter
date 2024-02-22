@@ -3,18 +3,22 @@ import * as S from '../style/commonsStyle/Form.style';
 import { useDispatch, useSelector } from 'react-redux';
 import { __addLetter } from '../../redux/modules/letters';
 import { __getUser } from '../../redux/modules/authSlice';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
+import Loding from './Loding';
 
 function Form() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [content, setContent] = useState('');
   const [member, setMember] = useState('김강민');
-  const { user, error } = useSelector((state) => state.authSlice);
+  const { user, isLoding, error } = useSelector((state) => state.authSlice);
   //새로고침, error대응
   useEffect(() => {
     dispatch(__getUser());
-  }, []);
+  }, [dispatch]);
+  if (isLoding) {
+    <Loding />;
+  }
   if (error) {
     alert(error.response.data.message);
     navigate('/');

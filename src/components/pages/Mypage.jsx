@@ -51,24 +51,54 @@ function Mypage() {
     };
     reder.readAsDataURL(e.target.files[0]);
   };
-  //수정완료 버튼
+  //수정완료 버튼 + 비슷한 로직이 3번반복됨 어떻게 리팩토링 해야 할지 모르겠음..
   const handleUpdateBtn = () => {
+    //닉네임,사진 둘다 바꿨을 때
+    //둘다 바꾸면 alert가 두번뜨는 문제,,
+    if (updateNickName && file) {
+      const formData = new FormData();
+      formData.append('avatar', file);
+      formData.append('nickname', updateNickName);
+      dispatch(__updateUser(formData));
+      letters.map((item) => {
+        if (item.email === user.id) {
+          const id = item.id;
+          dispatch(__profileUpdate({ id, updateNickName, changeImage }));
+        }
+        return item;
+      });
+      alert('수정되었습니다');
+      setUpdateMod(false);
+    }
+    //사진만 바꿨을때
     if (!updateNickName) {
       const formData = new FormData();
       formData.append('avatar', file);
       formData.append('nickname', user.nickname);
       dispatch(__updateUser(formData));
-      alert('수정되었습니다');
-      setUpdateMod(false);
-    } else {
-      const formData = new FormData();
-      formData.append('avatar', file);
-      formData.append('nickname', updateNickName);
-      dispatch(__updateUser(formData));
-      const updateProfile = letters.map((item) => {
+      letters.map((item) => {
         if (item.email === user.id) {
           const id = item.id;
-          dispatch(__profileUpdate({ id, updateNickName, changeImage }));
+          dispatch(__profileUpdate({ id, changeImage }));
+        }
+        return item;
+      });
+      alert('수정되었습니다');
+      setUpdateMod(false);
+    }
+    //닉네임만 바꿨을때
+    if (updateNickName) {
+      //기존에 있는 file로 보내야 하는데 url로 보내니까
+      //닉네임만 바꾸면 기본이미지로 바뀜,,, 해결하려면
+      //기존에 file을 저장해놓고 그걸 보내야 하는데 모르겠음..
+      const formData = new FormData();
+      formData.append('avatar', user.avatar);
+      formData.append('nickname', user.nickname);
+      dispatch(__updateUser(formData));
+      letters.map((item) => {
+        if (item.email === user.id) {
+          const id = item.id;
+          dispatch(__profileUpdate({ id, updateNickName }));
         }
         return item;
       });
