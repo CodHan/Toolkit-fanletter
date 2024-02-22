@@ -54,6 +54,21 @@ export const __updateLetter = createAsyncThunk(
     }
   }
 );
+export const __profileUpdate = createAsyncThunk(
+  'letters/profileUpdate',
+  async (payload, thunkApi) => {
+    const { id, updateNickName, changeImage } = payload;
+    try {
+      await api.patch(`/letters/${id}`, {
+        nickname: updateNickName,
+        avatar: changeImage,
+      });
+      return thunkApi.fulfillWithValue(payload);
+    } catch (error) {
+      return alert(error.message);
+    }
+  }
+);
 
 export const lettersSlice = createSlice({
   name: 'letter',
@@ -110,6 +125,23 @@ export const lettersSlice = createSlice({
         });
       })
       .addCase(__updateLetter.rejected, (state, action) => {
+        state.isLoding = false;
+        state.error = action.payload;
+      })
+      .addCase(__profileUpdate.pending, (state) => {
+        state.isLoding = true;
+      })
+      .addCase(__profileUpdate.fulfilled, (state, action) => {
+        state.isLoding = false;
+        const { id, updateNickName, changeImage } = action.payload;
+        state.letters = state.letters.map((item) => {
+          if (item.id === id) {
+            return { ...item, nickname: updateNickName, avatar: changeImage };
+          }
+          return item;
+        });
+      })
+      .addCase(__profileUpdate.rejected, (state, action) => {
         state.isLoding = false;
         state.error = action.payload;
       });

@@ -26,18 +26,23 @@ function Form() {
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    const date = new Date();
-    const newLetter = {
-      email: user.id,
-      nickname: user.nickname,
-      createdAt: date.toLocaleString(),
-      avatar:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0-wIQzJerlC3TiH7jCDnO_iJa58qLPCCl5GsYWNdQHu7AGJhxM1vYT6cpbQ&s',
-      content: content,
-      writedTo: member,
-    };
-    dispatch(__addLetter(newLetter));
-    setContent('');
+    if (!content) {
+      alert('내용을 입력해주세요');
+    } else {
+      const date = new Date();
+      const newLetter = {
+        email: user.id,
+        nickname: user.nickname,
+        createdAt: date.toLocaleString(),
+        avatar: user.avatar
+          ? user.avatar
+          : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0-wIQzJerlC3TiH7jCDnO_iJa58qLPCCl5GsYWNdQHu7AGJhxM1vYT6cpbQ&s',
+        content: content,
+        writedTo: member,
+      };
+      dispatch(__addLetter(newLetter));
+      setContent('');
+    }
   };
   const selectMember = (e) => {
     setMember(e.target.value);

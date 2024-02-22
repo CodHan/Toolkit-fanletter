@@ -36,8 +36,8 @@ export const __updateUser = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(updateResponse);
-      return;
+
+      return updateResponse.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error);
     }
@@ -47,11 +47,7 @@ export const __updateUser = createAsyncThunk(
 const authSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {
-    login: (state, action) => {
-      return action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(__getUser.pending, (state) => {
@@ -62,6 +58,17 @@ const authSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(__getUser.rejected, (state, action) => {
+        state.isLoding = false;
+        state.error = action.payload;
+      })
+      .addCase(__updateUser.pending, (state) => {
+        state.isLoding = true;
+      })
+      .addCase(__updateUser.fulfilled, (state, action) => {
+        state.isLoding = false;
+        state.user = action.payload;
+      })
+      .addCase(__updateUser.rejected, (state, action) => {
         state.isLoding = false;
         state.error = action.payload;
       });

@@ -4,8 +4,10 @@ import * as H from '../style/commonsStyle/Header.style';
 import { useDispatch, useSelector } from 'react-redux';
 import { __getUser, __updateUser } from '../../redux/modules/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { __profileUpdate } from '../../redux/modules/letters';
 
 function Mypage() {
+  const { letters } = useSelector((state) => state.letters);
   const [updateNickName, setUpdateNickName] = useState();
   const [file, setFile] = useState();
   const [changeImage, setChangeImage] = useState();
@@ -56,11 +58,22 @@ function Mypage() {
       formData.append('avatar', file);
       formData.append('nickname', user.nickname);
       dispatch(__updateUser(formData));
+      alert('수정되었습니다');
+      setUpdateMod(false);
     } else {
       const formData = new FormData();
       formData.append('avatar', file);
       formData.append('nickname', updateNickName);
       dispatch(__updateUser(formData));
+      const updateProfile = letters.map((item) => {
+        if (item.email === user.id) {
+          const id = item.id;
+          dispatch(__profileUpdate({ id, updateNickName, changeImage }));
+        }
+        return item;
+      });
+      alert('수정되었습니다');
+      setUpdateMod(false);
     }
   };
   return (
